@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Community</title>
+    <link rel="stylesheet" href="../CSS/Style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="prototype-selector">
+            <h1>Market Community</h1>
+            <div class="prototype-nav">
+               <button class="nav-btn active" onclick="showPrototype('main-pages')">Páginas Principales</button>
+                <a href="Autentication.html"></a><button class="nav-btn" onclick="showPrototype('auth')">Autenticación</button></a>
+                <button class="nav-btn" onclick="showPrototype('user-panel')">Panel de Usuario</button>
+                <button class="nav-btn" onclick="showPrototype('product-management')">Gestión de Productos</button>
+            </div>
+        </div>
+
+        <!-- Prototipo 1: Páginas Principales -->
+        <div id="main-pages" class="prototype active">
+            <div class="prototype-header">
+                <h2>Páginas Principales - Catálogo y Navegación</h2>
+                <p>Vista principal de la plataforma con catálogo de productos y sistema de navegación</p>
+            </div>
+            <div class="prototype-content">
+                <div class="app-header">
+                    <div class="logo">Market Community</div>
+                    <div class="header-nav">
+                        <a href="Autentication.html">Inicio</a>
+                        <a href="#">Catálogo</a>
+                        <a href="#">Categorías</a>
+                        <a href="#">Mi Cuenta</a>
+                    </div>
+                </div>
+                
+                <div class="main-pages">
+                    <div class="sidebar">
+                        <h3>Categorías</h3>
+                        <ul class="category-list">
+                            <li>👕 Camisetas</li>
+                            <li>👖 Pantalones</li>
+                            <li>👗 Vestidos</li>
+                            <li>🧥 Chaquetas</li>
+                            <li>👟 Calzado</li>
+                            <li>👜 Accesorios</li>
+                        </ul>
+                        
+                        <h3 style="margin-top: 30px;">Filtros</h3>
+                        <div style="margin-top: 10px;">
+                            <label>Precio máximo:</label>
+                            <input type="range" style="width: 100%; margin: 10px 0;">
+                            <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                                <span>$0</span>
+                                <span>$500</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-grid">
+                        <div class="product-card">
+                            <div class="product-image">📷 Imagen</div>
+                            <div class="product-info">
+                                <h4>Camiseta Vintage</h4>
+                                <p>$25.000</p>
+                                <small>Talla M - Como nueva</small>
+                            </div>
+                        </div>
+                        
+                        <div class="product-card">
+                            <div class="product-image">📷 Imagen</div>
+                            <div class="product-info">
+                                <h4>Jeans Clásicos</h4>
+                                <p>$45.000</p>
+                                <small>Talla 32 - Buen estado</small>
+                            </div>
+                        </div>
+                        
+                        <div class="product-card">
+                            <div class="product-image">📷 Imagen</div>
+                            <div class="product-info">
+                                <h4>Vestido Floral</h4>
+                                <p>DONACIÓN</p>
+                                <small>Talla S - Excelente</small>
+                            </div>
+                        </div>
+                        
+                        <div class="product-card">
+                            <div class="product-image">📷 Imagen</div>
+                            <div class="product-info">
+                                <h4>Chaqueta Cuero</h4>
+                                <p>$120.000</p>
+                                <small>Talla L - Muy buena</small>
+                            </div>
+                        </div>
+                        
+                        <div class="product-card">
+                            <div class="product-image">📷 Imagen</div>
+                            <div class="product-info">
+                                <h4>Sneakers Deportivos</h4>
+                                <p>$60.000</p>
+                                <small>Talla 42 - Poco uso</small>
+                            </div>
+                        </div>
+                        
+                        <div class="product-card">
+                            <div class="product-image">📷 Imagen</div>
+                            <div class="product-info">
+                                <h4>Bolso de Mano</h4>
+                                <p>$35.000</p>
+                                <small>Cuero genuino - Buen estado</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

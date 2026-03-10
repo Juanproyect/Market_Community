@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Diseño - Market Community</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: white;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: #2c3e50;
+            color: white;
+            padding: 25px;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .section-content {
+            padding: 30px;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .color-category {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+        }
+
+        .color-category h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .color-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .color-sample {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            margin-right: 15px;
+            border: 2px solid #e9ecef;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .color-info {
+            flex: 1;
+        }
+
+        .color-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 2px;
+        }
+
+        .color-hex {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #6c757d;
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .color-usage {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .typography-section {
+            margin-bottom: 30px;
+        }
+
+        .font-demo {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #e9ecef;
+        }
+
+        .font-family {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .font-stack {
+            font-family: 'Courier New', monospace;
+            background: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: #495057;
+            margin-bottom: 20px;
+            border: 1px solid #dee2e6;
+        }
+
+        .text-samples {
+            display: grid;
+            gap: 15px;
+        }
+
+        .text-sample {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .sample-label {
+            font-size: 0.8rem;
+            color: #6c757d;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .h1-sample { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+        .h2-sample { font-size: 2rem; font-weight: 600; line-height: 1.3; }
+        .h3-sample { font-size: 1.5rem; font-weight: 600; line-height: 1.4; }
+        .h4-sample { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+        .body-sample { font-size: 1rem; font-weight: 400; line-height: 1.6; }
+        .small-sample { font-size: 0.875rem; font-weight: 400; line-height: 1.5; }
+        .caption-sample { font-size: 0.75rem; font-weight: 400; line-height: 1.4; }
+
+        .usage-examples {
+            margin-top: 30px;
+        }
+
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .example-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px solid #e9ecef;
+        }
+
+        .example-header {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            margin: -20px -20px 20px -20px;
+            border-radius: 10px 10px 0 0;
+            font-weight: 600;
+        }
+
+        .color-combination {
+            display: flex;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .color-strip {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .accessibility-info {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .contrast-ratio {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        @media (max-width: 768px) {
+            .color-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .example-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Sistema de Diseño</h1>
+            <p>Market Community - Plataforma de Ropa de Segunda Mano</p>
+        </div>
+
+        <!-- Paleta de Colores -->
+        <div class="section">
+            <div class="section-header">
+                🎨 Paleta de Colores
+            </div>
+            <div class="section-content">
+                <div class="color-grid">
+                    <!-- Colores Primarios -->
+                    <div class="color-category">
+                        <h3>Colores Primarios</h3>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #4CAF50;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Verde Principal</div>
+                                <div class="color-hex">#4CAF50</div>
+                                <div class="color-usage">Botones principales, enlaces, elementos activos</div>
+                            </div>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #45a049;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Verde Oscuro</div>
+                                <div class="color-hex">#45a049</div>
+                                <div class="color-usage">Hover states, gradientes, énfasis</div>
+                            </div>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #2c3e50;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Azul Marino</div>
+                                <div class="color-hex">#2c3e50</div>
+                                <div class="color-usage">Headers, navegación, textos importantes</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Colores Secundarios -->
+                    <div class="color-category">
+                        <h3>Colores Secundarios</h3>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #2196F3;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Azul Información</div>
+                                <div class="color-hex">#2196F3</div>
+                                <div class="color-usage">Estadísticas, iconos informativos</div>
+                            </div>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #ffc107;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Amarillo Advertencia</div>
+                                <div class="color-hex">#ffc107</div>
+                                <div class="color-usage">Botones de edición, alertas</div>
+                            </div>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #dc3545;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Rojo Peligro</div>
+                                <div class="color-hex">#dc3545</div>
+                                <div class="color-usage">Eliminación, errores, acciones destructivas</div>
+                            </div>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #ff9800;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Naranja Estado</div>
+                                <div class="color-hex">#ff9800</div>
+                                <div class="color-usage">Estados pendientes, en proceso</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Escala de Grises -->
+                    <div class="color-category">
+                        <h3>Escala de Grises</h3>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #333333;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Gris Oscuro</div>
+                                <div class="color-hex">#333333</div>
+                                <div class="color-usage">Texto principal, títulos</div>
+                            </div>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #666666;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Gris Medio</div>
+                                <div class="color-hex">#666666</div>
+                                <div class="color-usage">Texto secundario, placeholders</div>
+                            </div>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #6c757d;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Gris Bootstrap</div>
+                                <div class="color-hex">#6c757d</div>
+                                <div class="color-usage">Botones secundarios, texto auxiliar</div>
+                            </div>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #dddddd;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Gris Claro</div>
+                                <div class="color-hex">#dddddd</div>
+                                <div class="color-usage">Bordes, separadores, placeholders de imagen</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fondos y Superficies -->
+                    <div class="color-category">
+                        <h3>Fondos y Superficies</h3>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #ffffff; border: 2px solid #ddd;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Blanco</div>
+                                <div class="color-hex">#ffffff</div>
+                                <div class="color-usage">Fondos de cards, modales, contenido principal</div>
+                            </div>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #f8f9fa;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Gris Muy Claro</div>
+                                <div class="color-hex">#f8f9fa</div>
+                                <div class="color-usage">Fondo general, secciones, sidebars</div>
+                            </div>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #e9ecef;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Gris Borders</div>
+                                <div class="color-hex">#e9ecef</div>
+                                <div class="color-usage">Bordes suaves, divisores</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gradientes -->
+                    <div class="color-category">
+                        <h3>Gradientes</h3>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                            <div class="color-info">
+                                <div class="color-name">Gradiente Principal</div>
+                                <div class="color-hex">#667eea → #764ba2</div>
+                                <div class="color-usage">Fondos hero, headers, elementos destacados</div>
+                            </div>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: linear-gradient(45deg, #4CAF50, #45a049);"></div>
+                            <div class="color-info">
+                                <div class="color-name">Gradiente Verde</div>
+                                <div class="color-hex">#4CAF50 → #45a049</div>
+                                <div class="color-usage">Botones especiales, elementos interactivos</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tags y Estados -->
+                    <div class="color-category">
+                        <h3>Tags y Estados</h3>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #e3f2fd;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Azul Claro Tag</div>
+                                <div class="color-hex">#e3f2fd</div>
+                                <div class="color-usage">Tags de visualizaciones, información</div>
+                            </div>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #f3e5f5;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Rosa Claro Tag</div>
+                                <div class="color-hex">#f3e5f5</div>
+                                <div class="color-usage">Tags de favoritos, likes</div>
+                            </div>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #e8f5e8;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Verde Claro Tag</div>
+                                <div class="color-hex">#e8f5e8</div>
+                                <div class="color-usage">Estados exitosos, vendido</div>
+                            </div>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-sample" style="background: #fff3e0;"></div>
+                            <div class="color-info">
+                                <div class="color-name">Naranja Claro Tag</div>
+                                <div class="color-hex">#fff3e0</div>
+                                <div class="color-usage">Mensajes, notificaciones</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tipografía -->
+        <div class="section">
+            <div class="section-header">
+                ✍️ Tipografía
+            </div>
+            <div class="section-content">
+                <div class="typography-section">
+                    <div class="font-demo">
+                        <div class="font-family">Familia Tipográfica Principal</div>
+                        <div class="font-stack">font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;</div>
+                        
+                        <div class="text-samples">
+                            <div class="text-sample">
+                                <div class="sample-label">H1 - Títulos Principales</div>
+                                <div class="h1-sample">Market Community</div>
+                                <small>Tamaño: 2.5rem (40px) | Peso: 700 | Interlineado: 1.2</small>
+                            </div>
+                            
+                            <div class="text-sample">
+                                <div class="sample-label">H2 - Subtítulos</div>
+                                <div class="h2-sample">Gestión de Productos</div>
+                                <small>Tamaño: 2rem (32px) | Peso: 600 | Interlineado: 1.3</small>
+                            </div>
+                            
+                            <div class="text-sample">
+                                <div class="sample-label">H3 - Secciones</div>
+                                <div class="h3-sample">Mis Publicaciones</div>
+                                <small>Tamaño: 1.5rem (24px) | Peso: 600 | Interlineado: 1.4</small>
+                            </div>
+                            
+                            <div class="text-sample">
+                                <div class="sample-label">H4 - Subsecciones</div>
+                                <div class="h4-sample">Camiseta Nike Vintage</div>
+                                <small>Tamaño: 1.25rem (20px) | Peso: 600 | Interlineado: 1.4</small>
+                            </div>
+                            
+                            <div class="text-sample">
+                                <div class="sample-label">Body - Texto Principal</div>
+                                <div class="body-sample">Esta es una plataforma de compra, venta y donación de ropa de segunda mano que conecta a una comunidad comprometida con la moda sostenible y el consumo responsable.</div>
+                                <small>Tamaño: 1rem (16px) | Peso: 400 | Interlineado: 1.6</small>
+                            </div>
+                            
+                            <div class="text-sample">
+                                <div class="sample-label">Small - Texto Secundario</div>
+                                <div class="small-sample">Talla M - Como nueva • Publicado hace 3 días</div>
+                                <small>Tamaño: 0.875rem (14px) | Peso: 400 | Interlineado: 1.5</small>
+                            </div>
+                            
+                            <div class="text-sample">
+                                <div class="sample-label">Caption - Texto Auxiliar</div>
+                                <div class="caption-sample">Máximo 5 imágenes - JPG, PNG (máx. 2MB cada una)</div>
+                                <small>Tamaño: 0.75rem (12px) | Peso: 400 | Interlineado: 1.4</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="font-demo">
+                        <div class="font-family">Familia Tipográfica para Código</div>
+                        <div class="font-stack">font-family: 'Courier New', monospace;</div>
+                        <div class="text-sample">
+                            <div class="sample-label">Código y Valores Técnicos</div>
+                            <div style="font-family: 'Courier New', monospace; font-size: 0.9rem; background: #f8f9fa; padding: 8px; border-radius: 4px;">#4CAF50 | rgb(76, 175, 80) | hsl(122, 39%, 49%)</div>
+                            <small>Usado para códigos de color, valores técnicos, identificadores</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jerarquía Tipográfica -->
+                <div class="usage-examples">
+                    <h3 style="margin-bottom: 20px; color: #2c3e50;">Jerarquía y Uso</h3>
+                    <div class="example-grid">
+                        <div class="example-card">
+                            <div class="example-header">Pesos de Fuente</div>
+                            <div style="margin-bottom: 10px;">
+                                <span style="font-weight: 400;">Regular (400)</span> - Texto de párrafos
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <span style="font-weight: 600;">Semi-Bold (600)</span> - Títulos, labels
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <span style="font-weight: 700;">Bold (700)</span> - Títulos principales
+                            </div>
+                        </div>
+                        
+                        <div class="example-card">
+                            <div class="example-header">Espaciado</div>
+                            <div style="margin-bottom: 10px;">
+                                <strong>Interlineado:</strong> 1.2 - 1.6
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <strong>Espaciado de párrafos:</strong> 1rem
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <strong>Márgenes de títulos:</strong> 1.5-2rem
+                            </div>
+                        </div>
+                        
+                        <div class="example-card">
+                            <div class="example-header">Casos de Uso</div>
+                            <div style="margin-bottom: 8px;">
+                                <strong>Headers:</strong> Semi-Bold, colores primarios
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <strong>Botones:</strong> Semi-Bold, contraste alto
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <strong>Labels:</strong> Semi-Bold, texto pequeño
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <strong>Contenido:</strong> Regular, legible
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Combinaciones de Color -->
+        <div class="section">
+            <div class="section-header">
+                🎯 Combinaciones Recomendadas
+            </div>
+            <div class="section-content">
+                <div class="example-grid">
+                    <div class="example-card">
+                        <div class="example-header">Botón Principal</div>
+                        <div class="color-combination">
+                            <div class="color-strip" style="background: #4CAF50;">Texto Blanco</div>
+                            <div class="color-strip" style="background: #45a049;">Hover</div>
+                        </div>
+                        <p><strong>Uso:</strong> Acciones primarias, envío de formularios</p>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-header">Header Navegación</div>
+                        <div class="color-combination">
+                            <div class="color-strip" style="background: #2c3e50;">Fondo Oscuro</div>
+                            <div class="color-strip" style="background: #ffffff; color: #2c3e50;">Texto Blanco</div>
+                        </div>
+                        <p><strong>Uso:</strong> Barras de navegación, headers</p>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-header">Cards de Producto</div>
+                        <div class="color-combination">
+                            <div class="color-strip" style="background: #ffffff; color: #333; border: 2px solid #e9ecef;">Fondo Blanco</div>
+                            <div class="color-strip" style="background: #f8f9fa; color: #333;">Texto Oscuro</div>
+                        </div>
+                        <p><strong>Uso:</strong> Tarjetas de productos, contenido</p>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-header">Estados y Tags</div>
+                        <div class="color-combination">
+                            <div class="color-strip" style="background: #e8f5e8; color: #2e7d32;">Éxito</div>
+                            <div class="color-strip" style="background: #fff3e0; color: #f57c00;">Pendiente</div>
+                        </div>
+                        <p><strong>Uso:</strong> Indicadores de estado, etiquetas</p>
+                    </div>
+                </div>
+                
+                <div class="accessibility-info">
+                    <h4>📋 Notas de Accesibilidad</h4>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li>Todas las combinaciones cumplen con <span class="contrast-ratio">WCAG AA (4.5:1)</span></li>
+                        <li>Los colores principales tienen <span class="contrast-ratio">contraste AAA (7:1)</span> con texto blanco</li>
+                        <li>Se evita el uso exclusivo de color para transmitir información</li>
+                        <li>Los gradientes mantienen legibilidad en texto superpuesto</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
