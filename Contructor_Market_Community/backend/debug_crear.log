@@ -1,0 +1,3 @@
+{"body":{"titulo":"Camisa vaquera","descripcion":"prueba","id_categoria":"4","estado_prenda":"regular","tipo":"donacion","precio":"0"},"files":1,"user":3}
+{"body":{"titulo":"accesorios","descripcion":"prueba","id_categoria":"6","estado_prenda":"bueno","tipo":"donacion","precio":"0"},"files":1,"user":3}
+{"body":{"titulo":"calzado","descripcion":"prueba","id_categoria":"5","estado_prenda":"regular","tipo":"compraventa","precio":"120000"},"files":1,"user":3}

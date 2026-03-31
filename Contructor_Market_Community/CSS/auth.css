@@ -1,0 +1,112 @@
+/* ===================================================
+   AUTH.CSS — Login, Registro y Recuperación
+   Market Community | Arquitectura Modular v1.0
+   =================================================== */
+
+/* ─── CONTENEDOR DE AUTH ──────────────────────────── */
+
+.auth-wrapper {
+    min-height: calc(100vh - 40px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 420px;
+    background: var(--color-bg-white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-xl);
+    box-shadow: var(--shadow-lg);
+    animation: fadeInUp 0.4s ease;
+}
+
+/* ─── ENCABEZADO DEL FORMULARIO─────────────────────── */
+
+.auth-brand {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.auth-brand .logo {
+    font-size: 2em;
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}
+
+.auth-brand p {
+    color: var(--color-text-light);
+    font-size: var(--font-size-sm);
+}
+
+/* ─── TABS (Iniciar Sesión / Registrarse) ───────────── */
+
+.auth-tabs {
+    display: flex;
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-bg-hover);
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    border-bottom: 3px solid transparent;
+    transition: var(--transition-normal);
+    user-select: none;
+}
+
+.auth-tab:hover {
+    color: var(--color-primary);
+}
+
+.auth-tab.active {
+    border-bottom-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+/* ─── PANELES DE FORMULARIO ──────────────────────────── */
+
+.auth-form-panel {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.auth-form-panel.active {
+    display: block;
+}
+
+/* ─── ENLACE OLVIDÉ CONTRASEÑA ──────────────────────── */
+
+.auth-forgot {
+    text-align: center;
+    margin-top: var(--spacing-md);
+}
+
+.auth-forgot a {
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+}
+
+/* ─── TEXTO LEGAL AL REGISTRARSE ────────────────────── */
+
+.auth-legal {
+    text-align: center;
+    margin-top: var(--spacing-md);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+/* ─── RESPONSIVE ────────────────────────────────────── */
+
+@media (max-width: 480px) {
+    .auth-container {
+        padding: var(--spacing-lg);
+    }
+}

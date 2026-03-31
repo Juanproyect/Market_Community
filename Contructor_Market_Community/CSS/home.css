@@ -1,0 +1,168 @@
+/* ===================================================
+   HOME.CSS — Catálogo, Sidebar, Grid de Productos
+   Market Community | Arquitectura Modular v1.0
+   =================================================== */
+
+/* ─── LAYOUT DEL HOME ─────────────────────────────── */
+
+.catalog-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: var(--spacing-md);
+    min-height: 500px;
+}
+
+/* ─── SIDEBAR ─────────────────────────────────────── */
+
+.sidebar {
+    background: var(--color-bg-light);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-lg);
+}
+
+.sidebar h3 {
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* ─── LISTA DE CATEGORÍAS ─────────────────────────── */
+
+.category-list {
+    list-style: none;
+    margin-bottom: var(--spacing-lg);
+}
+
+.category-list li {
+    padding: 10px;
+    margin-bottom: var(--spacing-xs);
+    background: var(--color-bg-white);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    transition: var(--transition-normal);
+    border-left: 3px solid transparent;
+}
+
+.category-list li:hover {
+    background: var(--color-bg-hover);
+    border-left-color: var(--color-primary);
+    padding-left: 14px;
+}
+
+.category-list li.active {
+    background: var(--color-primary-light);
+    border-left-color: var(--color-primary);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* ─── FILTRO DE PRECIO ────────────────────────────── */
+
+.price-filter {
+    margin-top: var(--spacing-md);
+}
+
+.price-filter label {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.price-filter input[type="range"] {
+    width: 100%;
+    margin: var(--spacing-sm) 0;
+    accent-color: var(--color-primary);
+}
+
+.price-filter .price-range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+/* ─── GRID DE PRODUCTOS ───────────────────────────── */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    align-content: start;
+}
+
+/* ─── TARJETA DE PRODUCTO ─────────────────────────── */
+
+.product-card {
+    background: var(--color-bg-white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-card);
+}
+
+.product-image {
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(45deg, #ddd, #f0f0f0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    font-size: 2em;
+    transition: var(--transition-normal);
+}
+
+.product-card:hover .product-image {
+    background: linear-gradient(45deg, #c8e6c9, #a5d6a7);
+}
+
+.product-info {
+    padding: 15px;
+}
+
+.product-info h4 {
+    font-size: var(--font-size-sm);
+    margin-bottom: 4px;
+    color: var(--color-text-primary);
+}
+
+.product-info p {
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 4px;
+}
+
+.product-info small {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────── */
+
+@media (max-width: 768px) {
+    .catalog-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        order: 2;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        padding: var(--spacing-sm);
+    }
+}

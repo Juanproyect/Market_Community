@@ -1,42 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market Community</title>
-    <link rel="stylesheet" href="../CSS/Style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Market Community — Catálogo de ropa de segunda mano. Compra, vende o dona ropa en tu comunidad." />
+    <title>Catálogo | Market Community</title>
+
+    <!-- Módulos CSS (orden: base → componentes → layout → página) -->
+    <link rel="stylesheet" href="../CSS/base.css" />
+    <link rel="stylesheet" href="../CSS/components.css" />
+    <link rel="stylesheet" href="../CSS/layout.css" />
+    <link rel="stylesheet" href="../CSS/home.css" />
 </head>
 <body>
-    <div class="container">
-        <div class="prototype-selector">
-            <h1>Market Community</h1>
-            <div class="prototype-nav">
-               <button class="nav-btn active" onclick="showPrototype('main-pages')">Páginas Principales</button>
-                <a href="Autentication.html"></a><button class="nav-btn" onclick="showPrototype('auth')">Autenticación</button></a>
-                <button class="nav-btn" onclick="showPrototype('user-panel')">Panel de Usuario</button>
-                <button class="nav-btn" onclick="showPrototype('product-management')">Gestión de Productos</button>
-            </div>
-        </div>
 
-        <!-- Prototipo 1: Páginas Principales -->
-        <div id="main-pages" class="prototype active">
-            <div class="prototype-header">
-                <h2>Páginas Principales - Catálogo y Navegación</h2>
-                <p>Vista principal de la plataforma con catálogo de productos y sistema de navegación</p>
+    <div class="container">
+        <div class="page-wrapper">
+
+            <!-- App Header -->
+            <header class="app-header">
+                <a href="Home.html">
+                    <img src="../img/logo_MC_Blanco.png"
+                         alt="Market Community"
+                         class="logo-img" />
+                </a>
+                <nav class="header-nav" aria-label="Navegación principal">
+                    <a href="Home.html">Inicio</a>
+                    <a href="Home.html">Catálogo</a>
+                    <a href="Panel_User.html">Mi Cuenta</a>
+                    <a href="Autentication.html">Cerrar Sesión</a>
+                </nav>
+            </header>
+
+            <!-- Encabezado de sección -->
+            <div class="page-header">
+                <h2>Catálogo de Productos</h2>
+                <p>Encuentra ropa de segunda mano en excelente estado</p>
             </div>
-            <div class="prototype-content">
-                <div class="app-header">
-                    <div class="logo">Market Community</div>
-                    <div class="header-nav">
-                        <a href="Autentication.html">Inicio</a>
-                        <a href="#">Catálogo</a>
-                        <a href="#">Categorías</a>
-                        <a href="#">Mi Cuenta</a>
-                    </div>
-                </div>
-                
-                <div class="main-pages">
-                    <div class="sidebar">
+
+            <!-- Contenido principal -->
+            <main class="page-content">
+                <div class="catalog-layout">
+
+                    <!-- Sidebar de categorías y filtros -->
+                    <aside class="sidebar" aria-label="Filtros">
                         <h3>Categorías</h3>
                         <ul class="category-list">
                             <li>👕 Camisetas</li>
@@ -46,73 +53,53 @@
                             <li>👟 Calzado</li>
                             <li>👜 Accesorios</li>
                         </ul>
-                        
-                        <h3 style="margin-top: 30px;">Filtros</h3>
-                        <div style="margin-top: 10px;">
-                            <label>Precio máximo:</label>
-                            <input type="range" style="width: 100%; margin: 10px 0;">
-                            <div style="display: flex; justify-content: space-between; font-size: 12px;">
+
+                        <div class="price-filter">
+                            <label for="price-range">Precio máximo:</label>
+                            <input type="range" id="price-range" min="0" max="500" value="500" />
+                            <div class="price-range-labels">
                                 <span>$0</span>
-                                <span>$500</span>
+                                <span>$500.000</span>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="product-grid">
-                        <div class="product-card">
-                            <div class="product-image">📷 Imagen</div>
-                            <div class="product-info">
-                                <h4>Camiseta Vintage</h4>
-                                <p>$25.000</p>
-                                <small>Talla M - Como nueva</small>
-                            </div>
+                    </aside>
+
+                    <!-- Grilla de productos (Dinámica) -->
+                    <section class="product-grid" id="catalog-grid" aria-label="Lista de productos">
+                        <!-- Las tarjetas se inyectarán aquí mediante Javascript (products.js) -->
+                        <div style="text-align:center; grid-column: 1 / -1; padding: 2rem;">
+                            Cargando publicaciones...
                         </div>
-                        
-                        <div class="product-card">
-                            <div class="product-image">📷 Imagen</div>
-                            <div class="product-info">
-                                <h4>Jeans Clásicos</h4>
-                                <p>$45.000</p>
-                                <small>Talla 32 - Buen estado</small>
-                            </div>
-                        </div>
-                        
-                        <div class="product-card">
-                            <div class="product-image">📷 Imagen</div>
-                            <div class="product-info">
-                                <h4>Vestido Floral</h4>
-                                <p>DONACIÓN</p>
-                                <small>Talla S - Excelente</small>
-                            </div>
-                        </div>
-                        
-                        <div class="product-card">
-                            <div class="product-image">📷 Imagen</div>
-                            <div class="product-info">
-                                <h4>Chaqueta Cuero</h4>
-                                <p>$120.000</p>
-                                <small>Talla L - Muy buena</small>
-                            </div>
-                        </div>
-                        
-                        <div class="product-card">
-                            <div class="product-image">📷 Imagen</div>
-                            <div class="product-info">
-                                <h4>Sneakers Deportivos</h4>
-                                <p>$60.000</p>
-                                <small>Talla 42 - Poco uso</small>
-                            </div>
-                        </div>
-                        
-                        <div class="product-card">
-                            <div class="product-image">📷 Imagen</div>
-                            <div class="product-info">
-                                <h4>Bolso de Mano</h4>
-                                <p>$35.000</p>
-                                <small>Cuero genuino - Buen estado</small>
-                            </div>
-                        </div>
-                    </div>
+                    </section>
                 </div>
-            </div>
-        </div>
+            </main>
+
+        </div><!-- /.page-wrapper -->
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <a href="Home.html">
+                <img src="../img/logo_MC_Verde.png"
+                     alt="Market Community"
+                     class="footer-logo-img" />
+            </a>
+            <nav class="footer-links" aria-label="Links del footer">
+                <a href="Home.html">Inicio</a>
+                <a href="#">Sobre Nosotros</a>
+                <a href="#">Términos de Uso</a>
+                <a href="#">Privacidad</a>
+                <a href="#">Contacto</a>
+            </nav>
+            <p class="footer-copy">&copy; 2024 Market Community &mdash; Compra, vende y dona ropa en tu comunidad.</p>
+        </footer>
+
+    </div><!-- /.container -->
+
+    <!-- Módulos JS -->
+    <script src="../JS/api.js"></script>
+    <script src="../JS/navigation.js"></script>
+    <script src="../JS/products.js"></script>
+    <script src="../JS/main.js"></script>
+
+</body>
+</html>

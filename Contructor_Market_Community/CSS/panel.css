@@ -1,0 +1,152 @@
+/* ===================================================
+   PANEL.CSS — Dashboard y Panel de Usuario
+   Market Community | Arquitectura Modular v1.0
+   =================================================== */
+
+/* ─── LAYOUT DEL DASHBOARD ───────────────────────── */
+
+.user-dashboard {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md);
+}
+
+/* ─── SECCIÓN DE PERFIL (columna izquierda) ─────── */
+
+.profile-section {
+    background: var(--color-bg-light);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-lg);
+    height: fit-content;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, var(--color-primary), var(--color-primary-dark));
+    border-radius: 50%;
+    margin: 0 auto var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-white);
+    font-size: 40px;
+    box-shadow: var(--shadow-md);
+}
+
+.profile-name {
+    text-align: center;
+    font-size: 1.1em;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-primary);
+}
+
+.profile-info {
+    margin-bottom: var(--spacing-md);
+}
+
+.profile-info p {
+    font-size: var(--font-size-sm);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--color-bg-hover);
+    color: var(--color-text-primary);
+}
+
+.profile-info p:last-child {
+    border-bottom: none;
+}
+
+/* ─── ESTADÍSTICAS DEL PERFIL ─────────────────────── */
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 2px solid var(--color-bg-hover);
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: var(--font-size-lg);
+    color: var(--color-primary);
+    font-weight: 700;
+    display: block;
+}
+
+.stat-label {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    margin-top: 2px;
+}
+
+/* ─── SECCIÓN DE ACTIVIDAD (columna derecha) ─────── */
+
+.activity-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+}
+
+/* ─── TARJETA DE ACTIVIDAD ───────────────────────── */
+
+.activity-card {
+    background: var(--color-bg-white);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.activity-card h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+    font-size: 1em;
+}
+
+/* ─── LISTA DENTRO DE ACTIVITY CARD ──────────────── */
+
+.activity-list {
+    list-style: none;
+    margin-bottom: var(--spacing-md);
+}
+
+.activity-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--color-bg-light);
+    font-size: var(--font-size-sm);
+}
+
+.activity-list li:last-child {
+    border-bottom: none;
+}
+
+.activity-list span:first-child {
+    color: var(--color-text-primary);
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+
+@media (max-width: 1024px) {
+    .user-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-section {
+        max-width: 400px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .activity-section {
+        grid-template-columns: 1fr;
+    }
+}
