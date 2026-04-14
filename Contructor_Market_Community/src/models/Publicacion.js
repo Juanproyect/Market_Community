@@ -38,6 +38,10 @@ const Publicacion = sequelize.define('Publicacion', {
     id_categoria: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    estado_pub: {
+        type: DataTypes.ENUM('activa', 'vendida', 'eliminada'),
+        defaultValue: 'activa'
     }
 }, {
     tableName: 'publicacion',

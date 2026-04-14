@@ -22,12 +22,9 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 // Servir archivos estáticos del frontend
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Ruta base
+// Ruta base: Redirigir directamente al frontend (Home.html) para Tunnelmole / usuarios
 app.get('/', (req, res) => {
-    res.json({
-        mensaje: 'Bienvenido a la API de Market Community',
-        version: '1.0.0'
-    });
+    res.redirect('/Home.html');
 });
 
 // Montar el router de autenticación

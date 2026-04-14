@@ -17,7 +17,7 @@ const obtenerPublicaciones = async (req, res) => {
             include: [
                 { model: Imagen, as: 'imagenes', attributes: ['id_imagen', 'ruta_imagen', 'orden'] },
                 { model: Categoria, as: 'categoria', attributes: ['id_categoria', 'nombre'] },
-                { model: Usuario, as: 'vendedor', attributes: ['id_usuario', 'nombre', 'apellido'] }
+                { model: Usuario, as: 'vendedor', attributes: ['id_usuario', 'nombre'] }
             ],
             order: [['fecha_publicacion', 'DESC']]
         });
@@ -25,7 +25,7 @@ const obtenerPublicaciones = async (req, res) => {
         res.json(publicaciones);
     } catch (error) {
         console.error('Error obteniendo publicaciones:', error);
-        res.status(500).json({ error: 'Error del servidor al obtener publicaciones' });
+        res.status(500).json({ error: `Error del servidor al obtener publicaciones: ${error.message}` });
     }
 };
 
@@ -37,7 +37,7 @@ const obtenerPublicacionPorId = async (req, res) => {
             include: [
                 { model: Imagen, as: 'imagenes', attributes: ['id_imagen', 'ruta_imagen', 'orden'] },
                 { model: Categoria, as: 'categoria', attributes: ['id_categoria', 'nombre'] },
-                { model: Usuario, as: 'vendedor', attributes: ['id_usuario', 'nombre', 'apellido', 'correo'] }
+                { model: Usuario, as: 'vendedor', attributes: ['id_usuario', 'nombre', 'correo'] }
             ]
         });
 
