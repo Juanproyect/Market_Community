@@ -1,0 +1,314 @@
+/* chat.css - Estilos específicos para la interfaz de mensajería */
+
+.chat-container {
+    display: flex;
+    height: calc(100vh - 120px); /* Ocupa todo el espacio menos el header */
+    min-height: 500px;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* --- Panel Izquierdo --- */
+.chat-sidebar {
+    width: 320px;
+    border-right: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg);
+}
+
+.chat-sidebar-header {
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.sidebar-tabs {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar-tab {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 15px 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.sidebar-tab:hover {
+    color: var(--color-primary);
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.sidebar-tab.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+.chat-list {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.chat-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--color-border);
+    transition: background 0.2s;
+}
+
+.chat-item:hover, .chat-item.active {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.chat-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-right: 15px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+/* Indicador de línea en el avatar */
+.indicator-online {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-success);
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
+.indicator-offline {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-text-light);
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
+.chat-item-info {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.chat-item-name {
+    margin: 0;
+    font-weight: 600;
+    color: var(--color-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chat-item-date {
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+}
+
+/* --- Panel Derecho --- */
+.chat-main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background: url('img/pattern-bg.png') repeat; /* Opcional: fondo sutil */
+    background-color: #f0f2f5;
+    position: relative;
+}
+
+/* Estado Placeholder */
+.chat-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    color: var(--color-text-light);
+    padding: 20px;
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+/* Estado Activo */
+.chat-active {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    z-index: 10;
+}
+
+.btn-back-chat {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.chat-contact-info {
+    display: flex;
+    align-items: center;
+}
+
+.chat-contact-info h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--color-text);
+}
+
+.chat-status {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-text-online {
+    color: var(--color-success);
+}
+
+.status-text-offline {
+    color: var(--color-text-light);
+}
+
+/* Área de mensajes */
+.chat-messages {
+    flex-grow: 1;
+    padding: 25px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.msg-bubble {
+    max-width: 70%;
+    padding: 12px 18px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    position: relative;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.msg-received {
+    align-self: flex-start;
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-bottom-left-radius: 5px;
+}
+
+.msg-sent {
+    align-self: flex-end;
+    background: var(--color-primary);
+    color: white;
+    border-bottom-right-radius: 5px;
+}
+
+.msg-time {
+    display: block;
+    font-size: 0.7rem;
+    margin-top: 5px;
+    text-align: right;
+    opacity: 0.7;
+}
+
+/* Área de Input */
+.chat-input-area {
+    display: flex;
+    padding: 15px 20px;
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    gap: 15px;
+}
+
+.chat-input-area input {
+    flex-grow: 1;
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.chat-input-area input:focus {
+    border-color: var(--color-primary);
+}
+
+.btn-send {
+    border-radius: 25px;
+    padding: 10px 25px;
+    width: auto !important; /* Sobreescribe el width:100% de .btn */
+    flex-shrink: 0;
+}
+
+/* --- Responsividad --- */
+@media (max-width: 768px) {
+    .chat-container {
+        height: calc(100vh - 100px);
+        margin: 0;
+        border-radius: 0;
+    }
+
+    /* En móvil, mostramos u ocultamos un panel u otro según si hay un chat seleccionado */
+    .chat-container.chat-open .chat-sidebar {
+        display: none;
+    }
+
+    .chat-container:not(.chat-open) .chat-main {
+        display: none;
+    }
+
+    .chat-sidebar {
+        width: 100%;
+        border-right: none;
+    }
+
+    .btn-back-chat {
+        display: block;
+    }
+}

@@ -45,6 +45,10 @@ const Usuario = sequelize.define('Usuario', {
     token_expiracion: {
         type: DataTypes.DATE,
         allowNull: true
+    },
+    ultimo_acceso: {
+        type: DataTypes.DATE,
+        allowNull: true
     }
 }, {
     tableName: 'usuario',

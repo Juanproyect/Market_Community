@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Mensajería de Market Community" />
+    <title>Chat | Market Community</title>
+
+    <link rel="stylesheet" href="CSS/base.css" />
+    <link rel="stylesheet" href="CSS/components.css" />
+    <link rel="stylesheet" href="CSS/layout.css" />
+    <link rel="stylesheet" href="CSS/chat.css" />
+</head>
+<body>
+
+    <div class="container">
+        <div class="page-wrapper">
+
+            <!-- App Header -->
+            <header class="app-header">
+                <a href="Home.html">
+                    <img src="img/logo_MC_Blanco.png"
+                         alt="Market Community"
+                         class="logo-img" />
+                </a>
+                <nav class="header-nav" aria-label="Navegación principal">
+                    <!-- Dinámico por navigation.js -->
+                </nav>
+            </header>
+
+            <main class="chat-container">
+                
+                <!-- Panel Izquierdo: Lista de Contactos -->
+                <aside class="chat-sidebar">
+                    <div class="chat-sidebar-header">
+                        <div class="sidebar-tabs">
+                            <button class="sidebar-tab active" id="tab-btn-chats">Conversaciones</button>
+                            <button class="sidebar-tab" id="tab-btn-comunidad">Comunidad</button>
+                        </div>
+                    </div>
+
+                    <!-- Lista de Conversaciones Activas -->
+                    <div class="chat-list" id="chat-list">
+                        <div style="padding: 20px; text-align: center; color: var(--color-text-light);">Cargando...</div>
+                    </div>
+
+                    <!-- Lista de Vendedores/Comunidad -->
+                    <div class="chat-list hidden" id="community-list">
+                        <div style="padding: 20px; text-align: center; color: var(--color-text-light);">Cargando comunidad...</div>
+                    </div>
+                </aside>
+
+                <!-- Panel Derecho: Conversación -->
+                <section class="chat-main" id="chat-main">
+                    
+                    <!-- Estado Inicial (Sin chat seleccionado) -->
+                    <div class="chat-placeholder" id="chat-placeholder">
+                        <div class="placeholder-icon">💬</div>
+                        <h2>Tus Mensajes</h2>
+                        <p>Selecciona una conversación para empezar a chatear o contacta a un vendedor desde el catálogo.</p>
+                    </div>
+
+                    <!-- Chat Activo -->
+                    <div class="chat-active hidden" id="chat-active">
+                        <!-- Header del chat activo -->
+                        <div class="chat-header">
+                            <button class="btn-back-chat" id="btn-back-chat" title="Volver a la lista">⬅️</button>
+                            <div class="chat-contact-info">
+                                <div class="chat-avatar" id="active-avatar">👤</div>
+                                <div>
+                                    <h4 id="active-name">Nombre Contacto</h4>
+                                    <span class="chat-status" id="active-status">...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Área de mensajes -->
+                        <div class="chat-messages" id="chat-messages">
+                            <!-- Burbujas de mensaje -->
+                        </div>
+
+                        <!-- Input de mensaje -->
+                        <form class="chat-input-area" id="chat-form">
+                            <input type="text" id="chat-input" placeholder="Escribe un mensaje..." autocomplete="off" required>
+                            <button type="submit" class="btn btn-primary btn-send">Enviar</button>
+                        </form>
+                    </div>
+
+                </section>
+
+            </main>
+
+        </div><!-- /.page-wrapper -->
+    </div>
+
+    <!-- Módulos JS -->
+    <script src="JS/api.js"></script>
+    <script src="JS/navigation.js"></script>
+    <script src="JS/chat.js"></script>
+
+</body>
+</html>

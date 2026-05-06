@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Panel de Administración - Market Community" />
+    <title>Admin | Market Community</title>
+
+    <link rel="stylesheet" href="CSS/base.css" />
+    <link rel="stylesheet" href="CSS/components.css" />
+    <link rel="stylesheet" href="CSS/layout.css" />
+    <link rel="stylesheet" href="CSS/admin.css" />
+</head>
+<body>
+
+    <div class="container">
+        <div class="page-wrapper">
+
+            <!-- App Header -->
+            <header class="app-header">
+                <a href="Home.html">
+                    <img src="img/logo_MC_Blanco.png"
+                         alt="Market Community"
+                         class="logo-img" />
+                </a>
+                <nav class="header-nav" aria-label="Navegación principal">
+                    <!-- Dinámico por navigation.js -->
+                </nav>
+            </header>
+
+            <div class="page-header" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+                <h2>Panel de Administración</h2>
+                <p>Centro de moderación y control de la plataforma</p>
+            </div>
+
+            <!-- Contenido principal -->
+            <main class="page-content">
+                <div class="admin-layout">
+                    
+                    <!-- Sidebar de Admin -->
+                    <aside class="admin-sidebar">
+                        <ul class="admin-menu">
+                            <li class="active" data-tab="tab-dashboard">📊 Dashboard</li>
+                            <li data-tab="tab-usuarios">👥 Gestión de Usuarios</li>
+                            <li data-tab="tab-publicaciones">📦 Moderación Productos</li>
+                        </ul>
+                    </aside>
+
+                    <!-- Vistas -->
+                    <section class="admin-content">
+                        
+                        <!-- TAB: Dashboard -->
+                        <div id="tab-dashboard" class="admin-tab active">
+                            <h3>Resumen Global</h3>
+                            <div class="stats-grid" id="admin-stats-grid">
+                                <!-- Llenado dinámico -->
+                                <div style="padding: 20px;">Cargando estadísticas...</div>
+                            </div>
+                        </div>
+
+                        <!-- TAB: Usuarios -->
+                        <div id="tab-usuarios" class="admin-tab">
+                            <h3>Gestión de Usuarios</h3>
+                            <div class="table-responsive">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Correo</th>
+                                            <th>Rol</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="users-tbody">
+                                        <!-- Llenado dinámico -->
+                                        <tr><td colspan="6" style="text-align: center;">Cargando usuarios...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- TAB: Publicaciones -->
+                        <div id="tab-publicaciones" class="admin-tab">
+                            <h3>Moderación de Publicaciones</h3>
+                            <div class="table-responsive">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Foto</th>
+                                            <th>Título</th>
+                                            <th>Autor</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="pubs-tbody">
+                                        <!-- Llenado dinámico -->
+                                        <tr><td colspan="6" style="text-align: center;">Cargando publicaciones...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+            </main>
+
+        </div><!-- /.page-wrapper -->
+
+        <footer class="app-footer">
+            <p class="footer-copy">&copy; 2024 Market Community &mdash; Panel de Administración Exclusivo.</p>
+        </footer>
+
+    </div>
+
+    <!-- Módulos JS -->
+    <script src="JS/api.js"></script>
+    <script src="JS/navigation.js"></script>
+    <script src="JS/admin.js"></script>
+
+</body>
+</html>

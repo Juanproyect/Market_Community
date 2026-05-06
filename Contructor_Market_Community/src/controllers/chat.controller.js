@@ -14,19 +14,33 @@ const obtenerMisChats = async (req, res) => {
                 ]
             },
             include: [
-                { model: Usuario, as: 'emisor', attributes: ['id_usuario', 'nombre', 'correo'] },
-                { model: Usuario, as: 'receptor', attributes: ['id_usuario', 'nombre', 'correo'] }
+                { model: Usuario, as: 'emisor', attributes: ['id_usuario', 'nombre', 'correo', 'ultimo_acceso'] },
+                { model: Usuario, as: 'receptor', attributes: ['id_usuario', 'nombre', 'correo', 'ultimo_acceso'] }
             ],
             order: [['fecha_inicio', 'DESC']]
         });
 
         // Formatear la respuesta para saber con quién es el chat
+        const ahora = new Date();
         const resultado = chats.map(chat => {
             const elOtroUsuario = chat.id_usuario_emisor === id_usuario ? chat.receptor : chat.emisor;
+            
+            // Si accedió en los últimos 2 minutos, está en línea
+            let en_linea = false;
+            if (elOtroUsuario.ultimo_acceso) {
+                const diffMinutos = (ahora - new Date(elOtroUsuario.ultimo_acceso)) / 1000 / 60;
+                en_linea = diffMinutos <= 2;
+            }
+
             return {
                 id_chat: chat.id_chat,
                 fecha_inicio: chat.fecha_inicio,
-                contacto: elOtroUsuario
+                contacto: {
+                    id_usuario: elOtroUsuario.id_usuario,
+                    nombre: elOtroUsuario.nombre,
+                    en_linea: en_linea,
+                    ultimo_acceso: elOtroUsuario.ultimo_acceso
+                }
             };
         });
 

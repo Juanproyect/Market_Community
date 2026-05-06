@@ -39,6 +39,7 @@ const carritoRoutes = require('./routes/carrito.routes');
 const estadisticasRoutes = require('./routes/estadistica.routes');
 const chatRoutes = require('./routes/chat.routes');
 const soporteRoutes = require('./routes/soporte.routes');
+const adminRoutes = require('./routes/admin.routes');
 
 // Montar rutas de Fases 5 y 6
 app.use('/api/favoritos', favoritosRoutes);
@@ -46,6 +47,7 @@ app.use('/api/carrito', carritoRoutes);
 app.use('/api/estadisticas', estadisticasRoutes);
 app.use('/api/chats', chatRoutes);
 app.use('/api/soporte', soporteRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Manejo de errores genérico (middleware de error 404)
 app.use((req, res, next) => {

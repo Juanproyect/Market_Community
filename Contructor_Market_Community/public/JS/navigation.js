@@ -44,11 +44,7 @@ function markActiveNavLink() {
     });
 }
 
-/* ─── SESIÓN Y HEADER DINÁMICO ─────────────────────
-   Oculta / Muestra links según si el usuario está
-   logueado (tiene token) o no.
-─────────────────────────────────────────────────── */
-function setupAuthNavigation() {
+async function setupAuthNavigation() {
     const nav = document.querySelector('.header-nav');
     if (!nav) return;
 
@@ -56,17 +52,35 @@ function setupAuthNavigation() {
     
     // Rutas protegidas que no deben verse si no está logueado
     const currentFile = window.location.pathname.split('/').pop().toLowerCase();
-    const isProtected = ['gest_product.html', 'panel_user.html'].includes(currentFile);
+    const isProtected = ['gest_product.html', 'panel_user.html', 'admin_dashboard.html'].includes(currentFile);
 
     if (token) {
         // Usuario CON sesión
-        nav.innerHTML = `
-            <a href="Home.html">Inicio</a>
-            <a href="Gest_Product.html">Mis Productos</a>
-            <a href="Checkout.html">🛒 Carrito</a>
-            <a href="Panel_User.html">Mi Cuenta</a>
-            <a href="#" id="nav-logout">Cerrar Sesión</a>
-        `;
+        try {
+            // Verificar rol de usuario
+            const meRes = typeof apiFetch === 'function' ? await apiFetch('/auth/me') : null;
+            const isAdmin = meRes && meRes.usuario && meRes.usuario.rol === 'administrador';
+
+            let adminLink = isAdmin ? `<a href="Admin_Dashboard.html" class="admin-link">⚙️ Admin</a>` : '';
+
+            nav.innerHTML = `
+                <a href="Home.html">Inicio</a>
+                <a href="Gest_Product.html">Mis Productos</a>
+                <a href="Chat.html">💬 Mensajes</a>
+                <a href="Checkout.html">🛒 Carrito</a>
+                ${adminLink}
+                <a href="Panel_User.html">Mi Cuenta</a>
+                <a href="#" id="nav-logout">Cerrar Sesión</a>
+            `;
+        } catch (error) {
+            console.error("Error al verificar sesión:", error);
+            // Si el token es inválido, forzar cierre visual
+            nav.innerHTML = `
+                <a href="Home.html">Inicio</a>
+                <a href="Autentication.html">Iniciar Sesión / Registro</a>
+            `;
+            return;
+        }
         
         // Asignar evento al botón de cerrar sesión
         document.getElementById('nav-logout').addEventListener('click', (e) => {
@@ -95,7 +109,7 @@ function setupAuthNavigation() {
 }
 
 /* ─── INICIALIZACIÓN ─────────────────────────────── */
-document.addEventListener('DOMContentLoaded', () => {
-    setupAuthNavigation();
+document.addEventListener('DOMContentLoaded', async () => {
+    await setupAuthNavigation();
     markActiveNavLink();
 });

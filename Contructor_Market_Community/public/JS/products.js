@@ -49,7 +49,10 @@ async function loadCatalog() {
                         <p>${precioText}</p>
                         <small>${pub.estado_prenda.replace('_', ' ')} · ${pub.categoria ? pub.categoria.nombre : 'Sin categoría'}</small>
                         <br>
-                        <button class="btn btn-primary" style="margin-top:10px; width:100%;" onclick="event.stopPropagation(); window.addCart(${pub.id_publicacion})">🛒 Añadir al carrito</button>
+                        <div style="display:flex; gap:10px; margin-top:10px;">
+                            <button class="btn btn-primary" style="flex:1; font-size:0.85rem;" onclick="event.stopPropagation(); window.addCart(${pub.id_publicacion})">🛒 Carrito</button>
+                            <button class="btn btn-secondary" style="flex:1; font-size:0.85rem; background:white; color:var(--color-primary); border:1px solid var(--color-primary);" onclick="event.stopPropagation(); window.contactarVendedor(${pub.id_usuario})">💬 Vendedor</button>
+                        </div>
                     </div>
                 </article>
             `;
@@ -180,6 +183,29 @@ window.addCart = async function(id_publicacion) {
             body: JSON.stringify({ id_publicacion })
         });
         alert(res.mensaje);
+    } catch (err) {
+        alert(err.message);
+    }
+}
+
+window.contactarVendedor = async function(id_usuario_receptor) {
+    const token = getToken();
+    if (!token) return alert('Debes iniciar sesión para contactar al vendedor');
+    
+    try {
+        const meRes = await apiFetch('/auth/me');
+        if (meRes.usuario.id_usuario === id_usuario_receptor) {
+            return alert('No puedes contactarte a ti mismo.');
+        }
+
+        // Crear o obtener el chat
+        await apiFetch('/chats/iniciar', { 
+            method: 'POST',
+            body: JSON.stringify({ id_usuario_receptor })
+        });
+        
+        // Redirigir al chat
+        window.location.href = 'Chat.html';
     } catch (err) {
         alert(err.message);
     }

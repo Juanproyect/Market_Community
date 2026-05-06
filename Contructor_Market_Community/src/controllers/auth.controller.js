@@ -131,6 +131,17 @@ const perfil = async (req, res) => {
     }
 };
 
+// Ping para actualizar estado en línea
+const pingOnline = async (req, res) => {
+    try {
+        const id_usuario = req.usuario.id_usuario;
+        await Usuario.update({ ultimo_acceso: new Date() }, { where: { id_usuario } });
+        res.status(200).json({ mensaje: 'Estado en línea actualizado' });
+    } catch (error) {
+        res.status(500).json({ error: 'Error actualizando estado en línea' });
+    }
+};
+
 // Solicitar recuperación de contraseña (AHORA USA CORREO_RECUPERACION)
 const solicitarRecuperacion = async (req, res) => {
     try {
@@ -284,6 +295,7 @@ module.exports = {
     registrar, 
     login, 
     perfil, 
+    pingOnline,
     solicitarRecuperacion, 
     restablecerPassword,
     solicitarRecordatorioUsuario,

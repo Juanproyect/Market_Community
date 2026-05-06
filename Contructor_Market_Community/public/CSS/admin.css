@@ -1,0 +1,149 @@
+/* admin.css - Estilos específicos del Panel de Administración */
+
+.admin-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+@media (max-width: 800px) {
+    .admin-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.admin-sidebar {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.admin-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.admin-menu li {
+    padding: 15px 20px;
+    cursor: pointer;
+    border-left: 4px solid transparent;
+    transition: background 0.3s, border-color 0.3s;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.admin-menu li:hover {
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.admin-menu li.active {
+    background: rgba(102, 126, 234, 0.1);
+    border-left-color: var(--color-primary);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.admin-content {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    box-shadow: var(--shadow-sm);
+    min-height: 500px;
+}
+
+.admin-tab {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.admin-tab.active {
+    display: block;
+}
+
+.admin-tab h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #1e3c72;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 10px;
+}
+
+/* Tablas */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.admin-table th, 
+.admin-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.admin-table th {
+    background-color: var(--color-bg);
+    color: var(--color-text-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.admin-table tr:hover td {
+    background-color: rgba(0,0,0,0.02);
+}
+
+.admin-table img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+}
+
+.action-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: white;
+    transition: opacity 0.2s;
+    margin-right: 5px;
+}
+
+.action-btn:hover {
+    opacity: 0.8;
+}
+
+.btn-suspend { background: var(--color-warning); }
+.btn-block { background: var(--color-danger); }
+.btn-activate { background: var(--color-success); }
+
+/* Badges estados */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: white;
+}
+.status-activo, .status-activa { background: var(--color-success); }
+.status-suspendido { background: var(--color-warning); }
+.status-bloqueado, .status-eliminada { background: var(--color-danger); }
+.status-vendida { background: var(--color-primary); }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
