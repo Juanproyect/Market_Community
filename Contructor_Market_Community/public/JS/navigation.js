@@ -63,6 +63,7 @@ function setupAuthNavigation() {
         nav.innerHTML = `
             <a href="Home.html">Inicio</a>
             <a href="Gest_Product.html">Mis Productos</a>
+            <a href="Checkout.html">🛒 Carrito</a>
             <a href="Panel_User.html">Mi Cuenta</a>
             <a href="#" id="nav-logout">Cerrar Sesión</a>
         `;

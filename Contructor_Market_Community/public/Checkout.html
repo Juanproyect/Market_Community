@@ -75,29 +75,52 @@
 
                         <h3>Información de Pago <span class="badge-test">Test Mode</span></h3>
                         
+                        <div class="payment-methods">
+                            <label class="payment-method-label">
+                                <input type="radio" name="payment_method" value="tarjeta_credito_test" checked>
+                                💳 Tarjeta de Crédito/Débito
+                            </label>
+                            <label class="payment-method-label">
+                                <input type="radio" name="payment_method" value="transferencia_test">
+                                🏦 Transferencia (PSE / Nequi)
+                            </label>
+                            <label class="payment-method-label">
+                                <input type="radio" name="payment_method" value="saldo_plataforma">
+                                💰 Saldo en Plataforma
+                            </label>
+                        </div>
+                        
                         <form id="payment-form" class="payment-form">
-                            <div class="form-group">
-                                <label for="card-name">Nombre en la Tarjeta</label>
-                                <input type="text" id="card-name" placeholder="Ej: Maria Gonzalez" required>
+                            <!-- Datos de Tarjeta -->
+                            <div id="card-details-section">
+                                <div class="form-group">
+                                    <label for="card-name">Nombre en la Tarjeta</label>
+                                    <input type="text" id="card-name" placeholder="Ej: Maria Gonzalez" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="card-number">Número de Tarjeta (Simulada)</label>
+                                    <div class="card-input-wrapper">
+                                        <input type="text" id="card-number" placeholder="4242 4242 4242 4242" maxlength="19" required>
+                                        <span class="card-icon">💳</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label for="card-exp">Vencimiento</label>
+                                        <input type="text" id="card-exp" placeholder="MM/YY" maxlength="5" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="card-cvc">CVC</label>
+                                        <input type="text" id="card-cvc" placeholder="123" maxlength="4" required>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <div class="form-group">
-                                <label for="card-number">Número de Tarjeta (Simulada)</label>
-                                <div class="card-input-wrapper">
-                                    <input type="text" id="card-number" placeholder="4242 4242 4242 4242" maxlength="19" required>
-                                    <span class="card-icon">💳</span>
-                                </div>
-                            </div>
-                            
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label for="card-exp">Vencimiento</label>
-                                    <input type="text" id="card-exp" placeholder="MM/YY" maxlength="5" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="card-cvc">CVC</label>
-                                    <input type="text" id="card-cvc" placeholder="123" maxlength="4" required>
-                                </div>
+                            <!-- Mensaje Alternativo -->
+                            <div id="alt-payment-msg" style="display: none; text-align: center; color: var(--color-text-light); margin: 15px 0;">
+                                <p>Serás redirigido para completar esta transacción de forma segura, o el saldo será descontado de tu cuenta.</p>
                             </div>
 
                             <button type="submit" class="btn btn-pay" id="btn-pay" disabled>

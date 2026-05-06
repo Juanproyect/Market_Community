@@ -37,23 +37,30 @@ document.addEventListener('DOMContentLoaded', () => {
             cartContainer.innerHTML = '<div class="empty-cart-message">Cargando carrito...</div>';
             btnPay.disabled = true;
 
-            const res = await API.get('/api/carrito');
+            const res = await apiFetch('/carrito');
             
-            if (res.error) {
-                cartContainer.innerHTML = `<div class="empty-cart-message error">${res.error}</div>`;
-                return;
+            if (res && res.detalles) {
+                renderizarCarrito(res.detalles, res.total || 0);
+            } else {
+                cartContainer.innerHTML = '<div class="empty-cart-message">Tu carrito está vacío.</div>';
             }
-
-            renderizarCarrito(res.detalles || [], res.total || 0);
 
         } catch (error) {
             console.error("Error al cargar el carrito:", error);
-            cartContainer.innerHTML = '<div class="empty-cart-message error">Hubo un error al cargar el carrito.</div>';
+            cartContainer.innerHTML = `<div class="empty-cart-message error">${error.message || 'Hubo un error al cargar el carrito.'}</div>`;
         }
     }
 
     // 2. Renderizar Elementos
-    function renderizarCarrito(detalles, total) {
+    function renderizarCarrito(detalles, totalBackend) {
+        // Recalcular total visualmente para mayor precisión en caso de datos de prueba antiguos
+        let total = 0;
+        detalles.forEach(d => {
+            if (d.producto && d.producto.tipo !== 'donacion') {
+                total += Number(d.producto.precio || 0);
+            }
+        });
+        
         currentTotal = total;
         cartCount.textContent = detalles.length;
         
@@ -86,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const div = document.createElement('div');
             div.className = 'cart-item';
             div.innerHTML = `
-                <img src="${API.BASE_URL}${imagen}" alt="${pub.titulo}" class="cart-item-img" onerror="this.src='img/logo_MC_Verde.png'">
+                <img src="http://localhost:3000${imagen}" alt="${pub.titulo}" class="cart-item-img" onerror="this.src='img/logo_MC_Verde.png'">
                 <div class="cart-item-details">
                     <h4 class="cart-item-title">${pub.titulo}</h4>
                     <span class="badge ${pub.tipo === 'donacion' ? 'badge-donacion' : 'badge-compraventa'}">${pub.tipo}</span>
@@ -109,16 +116,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Remover Item
     async function removerItem(id_publicacion) {
         try {
-            const res = await API.delete(`/api/carrito/remover/${id_publicacion}`);
+            const res = await apiFetch(`/carrito/remover/${id_publicacion}`, { method: 'DELETE' });
             if (res.mensaje) {
                 // Recargar carrito
                 cargarCarrito();
-            } else {
-                alert(res.error || 'Error al remover el artículo.');
             }
         } catch (error) {
             console.error("Error al remover item:", error);
-            alert("Error de conexión al intentar remover el artículo.");
+            alert(`Error al remover: ${error.message}`);
         }
     }
 
@@ -146,6 +151,33 @@ document.addEventListener('DOMContentLoaded', () => {
         e.target.value = e.target.value.replace(/\D/g, '').substring(0, 4);
     });
 
+    // 4b. Manejo de métodos de pago
+    const radiosMetodoPago = document.querySelectorAll('input[name="payment_method"]');
+    const cardDetailsSection = document.getElementById('card-details-section');
+    const altPaymentMsg = document.getElementById('alt-payment-msg');
+    
+    radiosMetodoPago.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (e.target.value === 'tarjeta_credito_test') {
+                cardDetailsSection.style.display = 'block';
+                altPaymentMsg.style.display = 'none';
+                // Restaurar required
+                document.getElementById('card-name').required = true;
+                document.getElementById('card-number').required = true;
+                document.getElementById('card-exp').required = true;
+                document.getElementById('card-cvc').required = true;
+            } else {
+                cardDetailsSection.style.display = 'none';
+                altPaymentMsg.style.display = 'block';
+                // Quitar required
+                document.getElementById('card-name').required = false;
+                document.getElementById('card-number').required = false;
+                document.getElementById('card-exp').required = false;
+                document.getElementById('card-cvc').required = false;
+            }
+        });
+    });
+
     // 5. Procesar Pago
     paymentForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -164,25 +196,26 @@ document.addEventListener('DOMContentLoaded', () => {
             // Simulamos un delay de red de pasarela de pago para dar sensación de procesamiento
             await new Promise(resolve => setTimeout(resolve, 1500));
 
+            const selectedMethod = document.querySelector('input[name="payment_method"]:checked').value;
+
             // Llamada al backend para el checkout (se lleva todo el carrito)
             const payload = {
-                metodo_pago: 'tarjeta_credito_test'
+                metodo_pago: selectedMethod
             };
 
-            const res = await API.post('/api/carrito/checkout', payload);
+            const res = await apiFetch('/carrito/checkout', {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            });
 
             if (res.mensaje) {
-                // Pago exitoso!
-                mostrarRecibo(res.numero_recibo, res.pagado);
-            } else {
-                alert(res.error || "Ocurrió un error al procesar el pago.");
-                btnPay.innerHTML = originalText;
-                btnPay.disabled = false;
+                // Pago exitoso! Pasamos currentTotal calculado en frontend
+                mostrarRecibo(res.numero_recibo, currentTotal);
             }
 
         } catch (error) {
             console.error("Error en checkout:", error);
-            alert("Ocurrió un error inesperado al conectar con el servidor.");
+            alert(`Error procesando pago: ${error.message}`);
             btnPay.innerHTML = originalText;
             btnPay.disabled = false;
         }
