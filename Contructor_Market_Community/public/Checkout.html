@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Checkout de Market Community — Finaliza tu compra de forma segura." />
+    <title>Checkout | Market Community</title>
+
+    <!-- Módulos CSS -->
+    <link rel="stylesheet" href="CSS/base.css" />
+    <link rel="stylesheet" href="CSS/components.css" />
+    <link rel="stylesheet" href="CSS/layout.css" />
+    <link rel="stylesheet" href="CSS/checkout.css" />
+</head>
+<body>
+
+    <div class="container">
+        <div class="page-wrapper">
+
+            <!-- App Header -->
+            <header class="app-header">
+                <a href="Home.html">
+                    <img src="img/logo_MC_Blanco.png"
+                         alt="Market Community"
+                         class="logo-img" />
+                </a>
+                <nav class="header-nav" aria-label="Navegación principal">
+                    <a href="Home.html">Inicio</a>
+                    <a href="Home.html">Catálogo</a>
+                    <a href="Checkout.html" class="active">🛒 Carrito</a>
+                    <a href="Panel_User.html">Mi Cuenta</a>
+                    <a href="Autentication.html">Cerrar Sesión</a>
+                </nav>
+            </header>
+
+            <!-- Encabezado de sección -->
+            <div class="page-header">
+                <h2>Tu Carrito de Compras</h2>
+                <p>Verifica tus artículos y completa el pago de forma segura (Modo Prueba)</p>
+            </div>
+
+            <!-- Contenido principal -->
+            <main class="page-content">
+                <div class="checkout-layout">
+                    
+                    <!-- Columna Izquierda: Artículos del Carrito -->
+                    <section class="cart-items-section" aria-label="Artículos en tu carrito">
+                        <h3>Artículos (<span id="cart-count">0</span>)</h3>
+                        <div class="cart-items-container" id="cart-items-container">
+                            <!-- Items se inyectan aquí via JS -->
+                            <div class="empty-cart-message">Cargando carrito...</div>
+                        </div>
+                    </section>
+
+                    <!-- Columna Derecha: Resumen y Pago -->
+                    <aside class="checkout-summary-section" aria-label="Resumen de pago">
+                        <h3>Resumen del Pedido</h3>
+                        
+                        <div class="summary-details">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="summary-subtotal">$0</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Envío / Tarifas</span>
+                                <span>Gratis</span>
+                            </div>
+                            <div class="summary-row total-row">
+                                <span>Total</span>
+                                <span id="summary-total">$0</span>
+                            </div>
+                        </div>
+
+                        <hr class="summary-divider">
+
+                        <h3>Información de Pago <span class="badge-test">Test Mode</span></h3>
+                        
+                        <form id="payment-form" class="payment-form">
+                            <div class="form-group">
+                                <label for="card-name">Nombre en la Tarjeta</label>
+                                <input type="text" id="card-name" placeholder="Ej: Maria Gonzalez" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="card-number">Número de Tarjeta (Simulada)</label>
+                                <div class="card-input-wrapper">
+                                    <input type="text" id="card-number" placeholder="4242 4242 4242 4242" maxlength="19" required>
+                                    <span class="card-icon">💳</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label for="card-exp">Vencimiento</label>
+                                    <input type="text" id="card-exp" placeholder="MM/YY" maxlength="5" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="card-cvc">CVC</label>
+                                    <input type="text" id="card-cvc" placeholder="123" maxlength="4" required>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-pay" id="btn-pay" disabled>
+                                Pagar <span id="btn-pay-amount">$0</span>
+                            </button>
+                        </form>
+                        
+                        <div class="secure-badge">
+                            🔒 Pago Seguro - Entorno de Pruebas
+                        </div>
+                    </aside>
+
+                </div>
+            </main>
+
+        </div><!-- /.page-wrapper -->
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <a href="Home.html">
+                <img src="img/logo_MC_Verde.png"
+                     alt="Market Community"
+                     class="footer-logo-img" />
+            </a>
+            <p class="footer-copy">&copy; 2024 Market Community &mdash; Entorno de Pruebas.</p>
+        </footer>
+
+    </div><!-- /.container -->
+
+    <!-- Modal de Confirmación de Éxito -->
+    <div id="success-modal" class="modal-overlay hidden">
+        <div class="modal-content success-modal">
+            <div class="success-icon">✅</div>
+            <h2>¡Pago Exitoso!</h2>
+            <p>Tu compra se ha procesado correctamente en nuestro entorno de pruebas.</p>
+            <div class="receipt-box">
+                <p><strong>Recibo N°:</strong> <span id="receipt-number">---</span></p>
+                <p><strong>Total Pagado:</strong> <span id="receipt-total">---</span></p>
+            </div>
+            <button id="btn-continue-shopping" class="btn">Volver al Catálogo</button>
+        </div>
+    </div>
+
+    <!-- Módulos JS -->
+    <script src="JS/api.js"></script>
+    <script src="JS/navigation.js"></script>
+    <script src="JS/checkout.js"></script>
+
+</body>
+</html>
