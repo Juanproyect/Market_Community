@@ -22,7 +22,9 @@ const obtenerMisChats = async (req, res) => {
 
         // Formatear la respuesta para saber con quién es el chat
         const ahora = new Date();
-        const resultado = chats.map(chat => {
+        const resultado = [];
+
+        for (const chat of chats) {
             const elOtroUsuario = chat.id_usuario_emisor === id_usuario ? chat.receptor : chat.emisor;
             
             // Si accedió en los últimos 2 minutos, está en línea
@@ -32,17 +34,27 @@ const obtenerMisChats = async (req, res) => {
                 en_linea = diffMinutos <= 2;
             }
 
-            return {
+            // Contar mensajes no leídos (enviados por el otro usuario y no leídos por mí)
+            const no_leidos = await Mensaje.count({
+                where: {
+                    id_chat: chat.id_chat,
+                    id_emisor: elOtroUsuario.id_usuario,
+                    leido: false
+                }
+            });
+
+            resultado.push({
                 id_chat: chat.id_chat,
                 fecha_inicio: chat.fecha_inicio,
+                no_leidos,
                 contacto: {
                     id_usuario: elOtroUsuario.id_usuario,
                     nombre: elOtroUsuario.nombre,
                     en_linea: en_linea,
                     ultimo_acceso: elOtroUsuario.ultimo_acceso
                 }
-            };
-        });
+            });
+        }
 
         res.json(resultado);
     } catch (error) {
@@ -105,6 +117,18 @@ const obtenerMensajes = async (req, res) => {
         if (chat.id_usuario_emisor !== id_usuario && chat.id_usuario_receptor !== id_usuario) {
             return res.status(403).json({ error: 'Acceso denegado a este chat' });
         }
+
+        // Marcar como leídos los mensajes del otro usuario cuando abro el chat
+        await Mensaje.update(
+            { leido: true },
+            {
+                where: {
+                    id_chat,
+                    id_emisor: { [Op.ne]: id_usuario },
+                    leido: false
+                }
+            }
+        );
 
         const mensajes = await Mensaje.findAll({
             where: { id_chat },

@@ -107,6 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Indicador de conexión
                 const indicatorClass = contacto.en_linea ? 'indicator-online' : 'indicator-offline';
 
+                // Badge de no leídos
+                const unreadBadge = (c.no_leidos && c.no_leidos > 0 && c.id_chat !== currentChatId) 
+                    ? `<div class="unread-badge">${c.no_leidos}</div>` 
+                    : '';
+
                 html += `
                     <div class="chat-item ${isActive}" data-id="${c.id_chat}" data-name="${contacto.nombre}" data-online="${contacto.en_linea}">
                         <div class="chat-avatar">
@@ -117,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <h4 class="chat-item-name">${contacto.nombre}</h4>
                             <span class="chat-item-date">${contacto.en_linea ? '<span style="color:var(--color-success);font-size:0.8rem;">En línea</span>' : '<span style="color:var(--color-text-light);font-size:0.8rem;">Desconectado</span>'}</span>
                         </div>
+                        ${unreadBadge}
                     </div>
                 `;
             });

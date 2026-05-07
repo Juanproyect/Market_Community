@@ -49,9 +49,9 @@ async function loadCatalog() {
                         <p>${precioText}</p>
                         <small>${pub.estado_prenda.replace('_', ' ')} · ${pub.categoria ? pub.categoria.nombre : 'Sin categoría'}</small>
                         <br>
-                        <div style="display:flex; gap:10px; margin-top:10px;">
-                            <button class="btn btn-primary" style="flex:1; font-size:0.85rem;" onclick="event.stopPropagation(); window.addCart(${pub.id_publicacion})">🛒 Carrito</button>
-                            <button class="btn btn-secondary" style="flex:1; font-size:0.85rem; background:white; color:var(--color-primary); border:1px solid var(--color-primary);" onclick="event.stopPropagation(); window.contactarVendedor(${pub.id_usuario})">💬 Vendedor</button>
+                        <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+                            <button class="btn btn-primary" style="flex:1; font-size:0.8rem; padding:8px 10px; min-width:0; white-space:nowrap;" onclick="event.stopPropagation(); window.addCart(${pub.id_publicacion})">🛒 Carrito</button>
+                            <button class="btn btn-secondary" style="flex:1; font-size:0.8rem; padding:8px 10px; min-width:0; white-space:nowrap; background:white; color:var(--color-primary); border:1px solid var(--color-primary);" onclick="event.stopPropagation(); window.contactarVendedor(${pub.id_usuario})">💬 Vendedor</button>
                         </div>
                     </div>
                 </article>
