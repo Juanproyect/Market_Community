@@ -49,6 +49,10 @@ const Usuario = sequelize.define('Usuario', {
     ultimo_acceso: {
         type: DataTypes.DATE,
         allowNull: true
+    },
+    foto_perfil: {
+        type: DataTypes.STRING(255),
+        allowNull: true
     }
 }, {
     tableName: 'usuario',

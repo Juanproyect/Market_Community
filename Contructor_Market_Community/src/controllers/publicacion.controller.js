@@ -100,6 +100,38 @@ const crearPublicacion = async (req, res) => {
     }
 };
 
+// Editar publicación existente
+const editarPublicacion = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const id_usuario_peticion = req.usuario.id_usuario;
+        const { titulo, descripcion, estado_prenda, tipo, precio, id_categoria } = req.body;
+
+        const publicacion = await Publicacion.findByPk(id);
+        if (!publicacion) return res.status(404).json({ error: 'Publicación no encontrada' });
+
+        // Solo el creador puede editarla
+        if (publicacion.id_usuario !== id_usuario_peticion) {
+            return res.status(403).json({ error: 'No tienes permiso para editar esta publicación' });
+        }
+
+        // Actualizar campos
+        publicacion.titulo = titulo || publicacion.titulo;
+        publicacion.descripcion = descripcion !== undefined ? descripcion : publicacion.descripcion;
+        publicacion.estado_prenda = estado_prenda || publicacion.estado_prenda;
+        publicacion.tipo = tipo || publicacion.tipo;
+        publicacion.precio = tipo === 'donacion' ? null : (precio || publicacion.precio);
+        publicacion.id_categoria = id_categoria || publicacion.id_categoria;
+
+        await publicacion.save();
+
+        res.json({ mensaje: 'Publicación actualizada exitosamente' });
+    } catch (error) {
+        console.error('Error editando publicación:', error);
+        res.status(500).json({ error: `Error al editar: ${error.message}` });
+    }
+};
+
 // Borrado lógico de tu publicación
 const eliminarPublicacion = async (req, res) => {
     try {
@@ -129,5 +161,6 @@ module.exports = {
     obtenerPublicaciones,
     obtenerPublicacionPorId,
     crearPublicacion,
+    editarPublicacion,
     eliminarPublicacion
 };

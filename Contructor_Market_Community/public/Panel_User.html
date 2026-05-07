@@ -11,6 +11,28 @@
     <link rel="stylesheet" href="CSS/components.css" />
     <link rel="stylesheet" href="CSS/layout.css" />
     <link rel="stylesheet" href="CSS/panel.css" />
+    <style>
+        /* Estilos rápidos para el modal popup */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center;
+            z-index: 1000; backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white; padding: 2rem; border-radius: 15px; width: 90%; max-width: 600px;
+            max-height: 80vh; overflow-y: auto; position: relative; animation: popIn 0.3s ease;
+        }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #666; }
+        .profile-pic { cursor: pointer; transition: transform 0.3s ease; position: relative; }
+        .profile-pic:hover { transform: scale(1.05); }
+        .profile-pic::after { 
+            content: '📸'; position: absolute; bottom: 0; right: 0; 
+            background: var(--color-primary); border-radius: 50%; padding: 5px; 
+            font-size: 0.8rem; opacity: 0; transition: opacity 0.3s;
+        }
+        .profile-pic:hover::after { opacity: 1; }
+    </style>
 </head>
 <body>
 
@@ -45,16 +67,15 @@
 
                     <!-- Columna izquierda: Perfil -->
                     <aside class="profile-section" aria-label="Perfil de usuario">
-                        <div class="profile-pic" aria-hidden="true">👤</div>
-                        <h3 class="profile-name">María González</h3>
+                        <div class="profile-pic" id="profile-pic-trigger" title="Cambiar foto de perfil">👤</div>
+                        <input type="file" id="profile-photo-input" hidden accept="image/*">
+                        <h3 class="profile-name">Cargando...</h3>
 
-                        <div class="profile-info">
-                            <p><strong>Email:</strong> maria@email.com</p>
-                            <p><strong>Miembro desde:</strong> Enero 2024</p>
-                            <p><strong>Ubicación:</strong> Medellín, Colombia</p>
+                        <div class="profile-info" id="profile-info-details">
+                            <p>Cargando información del usuario...</p>
                         </div>
 
-                        <button class="btn" type="button">Editar Perfil</button>
+                        <!-- Botón Editar Perfil eliminado a petición del usuario -->
 
                         <!-- Estadísticas rápidas -->
                         <div class="stats" aria-label="Estadísticas del usuario">
@@ -101,49 +122,29 @@
                         <!-- Mis Compras -->
                         <div class="activity-card">
                             <h3>🛒 Mis Compras</h3>
-                            <ul class="activity-list">
-                                <li>
-                                    <span>Chaqueta Cuero</span>
-                                    <span class="status-done">Entregada</span>
-                                </li>
-                                <li>
-                                    <span>Sneakers Adidas</span>
-                                    <span class="status-transit">En tránsito</span>
-                                </li>
-                                <li>
-                                    <span>Bolso Louis V.</span>
-                                    <span class="status-done">Entregada</span>
-                                </li>
+                            <ul class="activity-list" id="list-compras">
+                                <li><span>Sin registros recientes</span></li>
                             </ul>
-                            <button class="btn-secondary" type="button">Ver historial</button>
+                            <button class="btn-secondary" type="button" id="btn-show-compras">Ver historial</button>
                         </div>
 
                         <!-- Mis Ventas -->
                         <div class="activity-card">
                             <h3>💰 Mis Ventas</h3>
-                            <p>Total vendido este mes: <strong>$320.000</strong></p>
-                            <ul class="activity-list">
-                                <li>
-                                    <span>Marzo 2024</span>
-                                    <span>$180.000</span>
-                                </li>
-                                <li>
-                                    <span>Febrero 2024</span>
-                                    <span>$95.000</span>
-                                </li>
+                            <p>Total vendido: <strong id="total-vendido">$0</strong></p>
+                            <ul class="activity-list" id="list-ventas">
+                                <li><span>Sin registros recientes</span></li>
                             </ul>
-                            <button class="btn-secondary" type="button">Ver estadísticas</button>
+                            <button class="btn-secondary" type="button" id="btn-show-ventas">Ver estadísticas</button>
                         </div>
 
                         <!-- Mis Favoritos -->
                         <div class="activity-card">
                             <h3>❤️ Mis Favoritos</h3>
-                            <ul class="activity-list">
-                                <li><span>🧥 Abrigo Vintage</span><span>$85.000</span></li>
-                                <li><span>👗 Vestido Elegante</span><span>$120.000</span></li>
-                                <li><span>👟 Converse Clásicos</span><span>DONACIÓN</span></li>
+                            <ul class="activity-list" id="list-favoritos">
+                                <li><span>No tienes favoritos</span></li>
                             </ul>
-                            <button class="btn-secondary" type="button">Ver todos (12)</button>
+                            <button class="btn-secondary" type="button" id="btn-show-favoritos">Ver todos</button>
                         </div>
 
                     </section>
@@ -171,10 +172,21 @@
 
     </div><!-- /.container -->
 
+    <!-- Modal Reutilizable para Popups -->
+    <div id="panel-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close">&times;</span>
+            <div id="modal-body">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
     <!-- Módulos JS -->
     <script src="JS/api.js"></script>
     <script src="JS/navigation.js"></script>
+    <script src="JS/products.js"></script>
+    <script src="JS/panel.js"></script>
     <script src="JS/main.js"></script>
-
 </body>
 </html>

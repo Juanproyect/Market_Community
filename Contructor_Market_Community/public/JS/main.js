@@ -44,13 +44,53 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ─── CATEGORÍAS SIDEBAR ──────────────────────────
        Resalta la categoría clickeada.
     ─────────────────────────────────────────────── */
-    document.querySelectorAll('.category-list li').forEach(item => {
+    /* ─── CATEGORÍAS SIDEBAR ──────────────────────────
+       Filtra el catálogo por la categoría seleccionada.
+    ─────────────────────────────────────────────── */
+    const categoryItems = document.querySelectorAll('.category-list li');
+    categoryItems.forEach(item => {
         item.addEventListener('click', function () {
-            document.querySelectorAll('.category-list li')
-                .forEach(i => i.classList.remove('active'));
-            this.classList.add('active');
+            const isAlreadyActive = this.classList.contains('active');
+            
+            categoryItems.forEach(i => i.classList.remove('active'));
+            
+            let id_categoria = null;
+            if (!isAlreadyActive) {
+                this.classList.add('active');
+                id_categoria = this.getAttribute('data-id');
+            }
+
+            // Llamar a loadCatalog con el filtro de categoría
+            // (Si hay un precio ya seleccionado, deberíamos mantenerlo, 
+            // pero para simplificar por ahora solo filtramos categoría)
+            const precioMax = document.getElementById('price-range')?.value;
+            if (typeof loadCatalog === 'function') {
+                loadCatalog({ id_categoria, precioMax });
+            }
         });
     });
+
+    /* ─── FILTRO DE PRECIO ─────────────────────────────
+       Filtra localmente las publicaciones cargadas.
+    ─────────────────────────────────────────────── */
+    const priceRange = document.getElementById('price-range');
+    const priceValue = document.getElementById('price-value');
+
+    if (priceRange && priceValue) {
+        priceRange.addEventListener('input', (e) => {
+            const val = e.target.value;
+            priceValue.textContent = `$${Number(val).toLocaleString('es-CO')}`;
+        });
+
+        priceRange.addEventListener('change', (e) => {
+            const activeCat = document.querySelector('.category-list li.active');
+            const id_categoria = activeCat ? activeCat.getAttribute('data-id') : null;
+            
+            if (typeof loadCatalog === 'function') {
+                loadCatalog({ id_categoria, precioMax: e.target.value });
+            }
+        });
+    }
 
     /* ─── FADE-IN DE PÁGINA ───────────────────────────
        Aplica animación de entrada al wrapper principal.

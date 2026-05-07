@@ -113,7 +113,7 @@ const login = async (req, res) => {
 };
 
 // Obtener datos del usuario autenticado (requiere token)
-const perfil = async (req, res) => {
+const obtenerPerfil = async (req, res) => {
     try {
         // req.usuario.id_usuario viene del middleware de auth
         const usuario = await Usuario.findByPk(req.usuario.id_usuario, {
@@ -291,13 +291,35 @@ const restablecerPassword = async (req, res) => {
     }
 };
 
+const actualizarFotoPerfil = async (req, res) => {
+    try {
+        const id_usuario = req.usuario.id_usuario;
+        if (!req.file) {
+            return res.status(400).json({ error: 'No se subió ninguna imagen' });
+        }
+
+        const usuario = await Usuario.findByPk(id_usuario);
+        usuario.foto_perfil = req.file.filename;
+        await usuario.save();
+
+        res.json({ 
+            mensaje: 'Foto de perfil actualizada', 
+            foto_perfil: req.file.filename 
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Fallo al actualizar foto' });
+    }
+};
+
 module.exports = { 
     registrar, 
     login, 
-    perfil, 
+    obtenerPerfil, 
     pingOnline,
     solicitarRecuperacion, 
     restablecerPassword,
     solicitarRecordatorioUsuario,
-    validarTokenUsuario
+    validarTokenUsuario,
+    actualizarFotoPerfil
 };

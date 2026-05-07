@@ -3,6 +3,7 @@ const {
     obtenerPublicaciones,
     obtenerPublicacionPorId,
     crearPublicacion,
+    editarPublicacion,
     eliminarPublicacion
 } = require('../controllers/publicacion.controller');
 
@@ -27,6 +28,9 @@ router.get('/:id', obtenerPublicacionPorId);
 
 // Crear publicación. 'imagenes' debe coincidir con el nombre(name="") del input file en HTML. Máximo 5 imágenes.
 router.post('/', verificarToken, upload.array('imagenes', 5), crearPublicacion);
+
+// Editar publicación
+router.put('/:id', verificarToken, editarPublicacion);
 
 // Eliminar publicación lógicamente
 router.delete('/:id', verificarToken, eliminarPublicacion);

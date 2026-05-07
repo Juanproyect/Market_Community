@@ -47,17 +47,17 @@
                     <aside class="sidebar" aria-label="Filtros">
                         <h3>Categorías</h3>
                         <ul class="category-list">
-                            <li>👕 Camisetas</li>
-                            <li>👖 Pantalones</li>
-                            <li>👗 Vestidos</li>
-                            <li>🧥 Chaquetas</li>
-                            <li>👟 Calzado</li>
-                            <li>👜 Accesorios</li>
+                            <li data-id="1">👕 Camisetas</li>
+                            <li data-id="2">👖 Pantalones</li>
+                            <li data-id="3">👗 Vestidos</li>
+                            <li data-id="4">🧥 Chaquetas</li>
+                            <li data-id="5">👟 Calzado</li>
+                            <li data-id="6">👜 Accesorios</li>
                         </ul>
 
                         <div class="price-filter">
-                            <label for="price-range">Precio máximo:</label>
-                            <input type="range" id="price-range" min="0" max="500" value="500" />
+                            <label for="price-range">Precio máximo: <span id="price-value">$500.000</span></label>
+                            <input type="range" id="price-range" min="0" max="500000" step="10000" value="500000" />
                             <div class="price-range-labels">
                                 <span>$0</span>
                                 <span>$500.000</span>

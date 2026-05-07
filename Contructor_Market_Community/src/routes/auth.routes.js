@@ -1,6 +1,17 @@
 const express = require('express');
-const { registrar, login, perfil, pingOnline, solicitarRecuperacion, restablecerPassword, solicitarRecordatorioUsuario, validarTokenUsuario } = require('../controllers/auth.controller');
+const { 
+    registrar, 
+    login, 
+    obtenerPerfil, 
+    actualizarFotoPerfil,
+    pingOnline,
+    solicitarRecuperacion, 
+    restablecerPassword,
+    solicitarRecordatorioUsuario,
+    validarTokenUsuario 
+} = require('../controllers/auth.controller');
 const { verificarToken } = require('../middlewares/auth.middleware');
+const upload = require('../config/multer');
 
 const router = express.Router();
 
@@ -13,7 +24,8 @@ router.post('/forgot-username', solicitarRecordatorioUsuario);
 router.post('/reveal-username', validarTokenUsuario);
 
 // Rutas Protegidas (Requieren token)
-router.get('/me', verificarToken, perfil);
+router.get('/me', verificarToken, obtenerPerfil);
+router.put('/foto', verificarToken, upload.single('foto'), actualizarFotoPerfil);
 router.put('/ping', verificarToken, pingOnline);
 
 module.exports = router;
