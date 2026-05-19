@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             pubs.forEach(p => {
                 const tr = document.createElement('tr');
-                const imagen = (p.imagenes && p.imagenes.length > 0) ? `http://localhost:3000/uploads/${p.imagenes[0].ruta_imagen}` : 'img/placeholder.png';
+                const imagen = (p.imagenes && p.imagenes.length > 0) ? `/uploads/${p.imagenes[0].ruta_imagen}` : 'img/placeholder.png';
                 
                 let btnAccion = p.estado_pub !== 'eliminada' 
                     ? `<button class="action-btn btn-block" onclick="window.eliminarPublicacion(${p.id_publicacion})">Eliminar / Moderar</button>` 

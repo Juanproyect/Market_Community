@@ -18,7 +18,8 @@ const Usuario = sequelize.define('Usuario', {
     },
     contraseña: { // Using the exact column name from diagram
         type: DataTypes.STRING(100),
-        allowNull: false
+        allowNull: false,
+        field: 'contrasena'
     },
     correo_recuperacion: {
         type: DataTypes.STRING(100),

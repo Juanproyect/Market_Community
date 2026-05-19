@@ -3,7 +3,7 @@
  * Market Community | Arquitectura Modular v1.0
  */
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = '/api';
 
 /**
  * Obtiene el token guardado en la sesión activa del navegador.

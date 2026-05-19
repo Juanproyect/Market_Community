@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const div = document.createElement('div');
             div.className = 'cart-item';
             div.innerHTML = `
-                <img src="http://localhost:3000${imagen}" alt="${pub.titulo}" class="cart-item-img" onerror="this.src='img/logo_MC_Verde.png'">
+                <img src="${imagen}" alt="${pub.titulo}" class="cart-item-img" onerror="this.src='img/logo_MC_Verde.png'">
                 <div class="cart-item-details">
                     <h4 class="cart-item-title">${pub.titulo}</h4>
                     <span class="badge ${pub.tipo === 'donacion' ? 'badge-donacion' : 'badge-compraventa'}">${pub.tipo}</span>

@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const chats = await apiFetch('/chats');
             
             if (chats.length === 0) {
-                chatListContainer.innerHTML = '<div style="padding:20px;text-align:center;color:gray;">Aún no tienes mensajes.</div>';
+                chatListContainer.innerHTML = '<div style="padding:20px;text-align:center;color:gray;"><img src="img/img_favoritos.png" alt="Sin mensajes" style="max-width:100px; margin-bottom:1rem;"><br>Aún no tienes mensajes.</div>';
                 return;
             }
 

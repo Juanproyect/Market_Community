@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 2. CONFIGURACIÓN DEL MODAL
     const modal = document.getElementById('panel-modal');
-    const modalBody = document.getElementById('modal-body');
     const modalClose = document.getElementById('modal-close');
 
     function openModal(html) {
@@ -77,7 +76,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             let html = '<div class="modal-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:15px; margin-top:1rem;">';
             favs.forEach(f => {
                 const pub = f.publicacion;
-                const img = pub.imagenes && pub.imagenes.length > 0 ? `http://localhost:3000/uploads/${pub.imagenes[0].ruta_imagen}` : '';
+                const img = pub.imagenes && pub.imagenes.length > 0 ? `/uploads/${pub.imagenes[0].ruta_imagen}` : '';
                 html += `
                     <div class="fav-card" style="border:1px solid #eee; border-radius:10px; overflow:hidden; font-size:0.8rem;">
                         <div style="height:100px; background-image:url('${img}'); background-size:cover; background-position:center; background-color:#f5f5f5;"></div>
@@ -114,7 +113,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             
             // Actualizar imagen en el DOM
-            const imgUrl = `http://localhost:3000/uploads/${res.foto_perfil}`;
+            const imgUrl = `/uploads/${res.foto_perfil}`;
             profilePicTrigger.style.backgroundImage = `url('${imgUrl}')`;
             profilePicTrigger.style.backgroundSize = 'cover';
             profilePicTrigger.style.backgroundPosition = 'center';
@@ -144,7 +143,7 @@ async function loadUserProfile() {
 
             if (user.foto_perfil) {
                 const trigger = document.getElementById('profile-pic-trigger');
-                const imgUrl = `http://localhost:3000/uploads/${user.foto_perfil}`;
+                const imgUrl = `/uploads/${user.foto_perfil}`;
                 trigger.style.backgroundImage = `url('${imgUrl}')`;
                 trigger.style.backgroundSize = 'cover';
                 trigger.style.backgroundPosition = 'center';

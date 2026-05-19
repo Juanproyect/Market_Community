@@ -19,15 +19,18 @@ USE market_community;
 --  vendedor, comprador.
 -- ────────────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS usuario (
-    id_usuario      INT(11)      NOT NULL AUTO_INCREMENT,
-    nombre          VARCHAR(100) NOT NULL,
-    apellido        VARCHAR(100) NOT NULL,
-    correo          VARCHAR(100) NOT NULL UNIQUE,
-    contrasena      VARCHAR(255) NOT NULL,              -- hash bcrypt
-    telefono        VARCHAR(20)  NULL,
-    rol             ENUM('administrador','vendedor','comprador') NOT NULL DEFAULT 'comprador',
-    estado_cuenta   ENUM('activo','suspendido','bloqueado')      NOT NULL DEFAULT 'activo',
-    fecha_registro  DATE         NOT NULL DEFAULT (CURRENT_DATE),
+    id_usuario          INT(11)      NOT NULL AUTO_INCREMENT,
+    nombre              VARCHAR(100) NOT NULL,
+    correo              VARCHAR(100) NOT NULL UNIQUE,
+    contrasena          VARCHAR(255) NOT NULL,
+    correo_recuperacion VARCHAR(100) NULL UNIQUE,
+    rol                 ENUM('administrador','vendedor','comprador') NOT NULL DEFAULT 'comprador',
+    estado_cuenta       ENUM('activo','suspendido','bloqueado')      NOT NULL DEFAULT 'activo',
+    fecha_registro      DATE         NOT NULL DEFAULT (CURRENT_DATE),
+    token_recuperacion  VARCHAR(100) NULL,
+    token_expiracion    DATETIME     NULL,
+    ultimo_acceso       DATETIME     NULL,
+    foto_perfil         VARCHAR(255) NULL,
     PRIMARY KEY (id_usuario),
     INDEX idx_correo (correo),
     INDEX idx_rol    (rol)
@@ -154,13 +157,13 @@ CREATE TABLE IF NOT EXISTS pago (
     metodo_pago    VARCHAR(50)   NOT NULL,              -- 'tarjeta','transferencia','efectivo', etc.
     estado         ENUM('pendiente','completado','fallido','reembolsado') NOT NULL DEFAULT 'pendiente',
     id_usuario     INT(11)       NOT NULL,
-    id_publicacion INT(11)       NOT NULL,
+    id_publicacion INT(11)       NULL,
     PRIMARY KEY (id_pago),
     INDEX idx_pago_usuario (id_usuario),
     CONSTRAINT fk_pago_usuario
         FOREIGN KEY (id_usuario)     REFERENCES usuario    (id_usuario)     ON DELETE RESTRICT,
     CONSTRAINT fk_pago_publicacion
-        FOREIGN KEY (id_publicacion) REFERENCES publicacion(id_publicacion) ON DELETE RESTRICT
+        FOREIGN KEY (id_publicacion) REFERENCES publicacion(id_publicacion) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 

@@ -44,7 +44,7 @@ async function loadCatalog(filters = {}) {
         }
 
         if (filtered.length === 0) {
-            grid.innerHTML = '<div style="text-align:center; grid-column: 1 / -1; padding: 2rem;">No se encontraron productos con estos filtros.</div>';
+            grid.innerHTML = '<div style="text-align:center; grid-column: 1 / -1; padding: 2rem;"><img src="img/img_Closet_Vacio.png" alt="Sin productos" style="max-width:150px; margin-bottom:1rem; opacity:0.8;"><br><p style="color:var(--text-color); font-weight:500;">No se encontraron productos con estos filtros.</p></div>';
             return;
         }
 
@@ -53,7 +53,7 @@ async function loadCatalog(filters = {}) {
         filtered.forEach(pub => {
             let imgHTML = '<div class="product-image">📷</div>';
             if (pub.imagenes && pub.imagenes.length > 0) {
-                const imgUrl = `http://localhost:3000/uploads/${pub.imagenes[0].ruta_imagen}`;
+                const imgUrl = `/uploads/${pub.imagenes[0].ruta_imagen}`;
                 imgHTML = `<div class="product-image" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center;"></div>`;
             }
 
@@ -75,7 +75,7 @@ async function loadCatalog(filters = {}) {
                         </button>
                     </div>
                     ${imgHTML}
-                    <div class="product-info" onclick="alert('Detalle en construcción. ID: ${pub.id_publicacion}')" style="cursor:pointer;">
+                    <div class="product-info" onclick="window.showProductDetail(${pub.id_publicacion})" style="cursor:pointer;">
                         <h4>${pub.titulo}</h4>
                         <p>${precioText}</p>
                         <small>${pub.estado_prenda.replace('_', ' ')} · ${pub.categoria ? pub.categoria.nombre : 'Sin categoría'}</small>
@@ -157,7 +157,7 @@ async function loadMyProducts() {
         const misPubs = publicaciones.filter(p => p.id_usuario === myId);
 
         if (misPubs.length === 0) {
-            listContainer.innerHTML = '<div style="text-align:center; padding:2rem; width:100%;">No has publicado ningún artículo aún.</div>';
+            listContainer.innerHTML = '<div style="text-align:center; padding:2rem; width:100%;"><img src="img/Img_Intercambio_prendas.png" alt="Sin artículos" style="max-width:150px; margin-bottom:1rem; opacity:0.8;"><br><p style="color:var(--text-color); font-weight:500;">No has publicado ningún artículo aún.</p></div>';
             return;
         }
 
@@ -168,7 +168,7 @@ async function loadMyProducts() {
             
             let imgHTML = '<div class="product-thumb">📷</div>';
             if (pub.imagenes && pub.imagenes.length > 0) {
-                const imgUrl = `http://localhost:3000/uploads/${pub.imagenes[0].ruta_imagen}`;
+                const imgUrl = `/uploads/${pub.imagenes[0].ruta_imagen}`;
                 imgHTML = `<div class="product-thumb" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center; border-radius: 8px;"></div>`;
             }
 
@@ -311,6 +311,65 @@ window.contactarVendedor = async function(id_usuario_receptor) {
     } catch (err) {
         alert(err.message);
     }
+}
+
+// ==========================================
+// 2B. DETALLE DE PRODUCTO (MODAL)
+// ==========================================
+
+window.showProductDetail = function(id_publicacion) {
+    const pub = currentPublicaciones.find(p => p.id_publicacion === id_publicacion);
+    if (!pub) return alert('Producto no encontrado');
+
+    const modal = document.getElementById('product-detail-modal');
+    if (!modal) return alert('El modal no está presente en esta página');
+
+    // Llenar datos
+    document.getElementById('pd-title').textContent = pub.titulo;
+    document.getElementById('pd-description').textContent = pub.descripcion || 'Sin descripción detallada.';
+    
+    const precioText = pub.tipo === 'donacion' ? 'DONACIÓN' : `$${Number(pub.precio).toLocaleString('es-CO')}`;
+    document.getElementById('pd-price').textContent = precioText;
+
+    document.getElementById('pd-seller').textContent = pub.vendedor ? pub.vendedor.nombre : 'Desconocido';
+    
+    const date = new Date(pub.fecha_publicacion || pub.createdAt || Date.now());
+    document.getElementById('pd-date').textContent = date.toLocaleDateString('es-CO');
+
+    // Badges (estado y categoría)
+    document.getElementById('pd-badges').innerHTML = `
+        <span class="badge" style="background:#e0f2f1; color:var(--primary); padding:4px 8px; border-radius:12px; font-size:0.8rem;">${pub.categoria ? pub.categoria.nombre : 'General'}</span>
+        <span class="badge" style="background:#eee; color:#555; padding:4px 8px; border-radius:12px; font-size:0.8rem; margin-left:5px;">${pub.estado_prenda.replace('_', ' ')}</span>
+    `;
+
+    // Imagen
+    let imgUrl = '';
+    if (pub.imagenes && pub.imagenes.length > 0) {
+        imgUrl = `/uploads/${pub.imagenes[0].ruta_imagen}`;
+    }
+    const imgContainer = document.getElementById('pd-image');
+    if (imgUrl) {
+        imgContainer.style.backgroundImage = `url('${imgUrl}')`;
+        imgContainer.innerHTML = '';
+    } else {
+        imgContainer.style.backgroundImage = 'none';
+        imgContainer.innerHTML = '<div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:#999; font-size:3rem;">📷</div>';
+    }
+
+    // Botones de acción
+    const actionsContainer = document.getElementById('pd-actions');
+    actionsContainer.innerHTML = `
+        <button class="btn btn-primary" style="flex:1;" onclick="window.addCart(${pub.id_publicacion}); window.event.stopPropagation();">🛒 Agregar al Carrito</button>
+        <button class="btn btn-secondary" style="flex:1; background:white; color:var(--color-primary); border:1px solid var(--color-primary);" onclick="window.contactarVendedor(${pub.id_usuario}); window.event.stopPropagation();">💬 Contactar Vendedor</button>
+    `;
+
+    // Mostrar modal
+    modal.classList.remove('hidden');
+}
+
+window.closeProductDetail = function() {
+    const modal = document.getElementById('product-detail-modal');
+    if (modal) modal.classList.add('hidden');
 }
 
 // ==========================================
