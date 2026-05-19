@@ -18,4 +18,4 @@ EXPOSE 3000
 
 CMD ["npm", "start"]
 
-COPY public ./public
+#COPY public ./public
